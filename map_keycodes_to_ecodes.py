@@ -12,6 +12,7 @@ print "To suit this script to your needs, open it in your text editor to find in
 
 print "This script listens for keycodes and, once detected, lets you choose the appropriate ecode from system-wide ecode collection"
 print "Once Ctrl+C-ed, it prints out a Python dictionary of keycode:ecode entries and exits"
+print " "
 
 #Here are your instructions.
 
@@ -28,17 +29,20 @@ print "Once Ctrl+C-ed, it prints out a Python dictionary of keycode:ecode entrie
 
 d = {} #Yes, this is THE dictionary.
 
-print " "
-print "This script uses Python 'evdev' module ecodes.ecodes.keys() list as a ecode base"
-print "Run evdev-install.sh to install it (uses apt-get and pip as a package manager)"
-from evdev.ecodes import ecodes
+try:
+    from evdev.ecodes import ecodes
+except:
+    print "This script uses Python 'evdev' module ecodes.ecodes.keys() list as a ecode base"
+    print "Run evdev-install.sh to install it (uses apt-get and pip as a package manager)"
+    sys.exit(0)
+
 ecodes = [key for key in ecodes.keys() if key.startswith("KEY_")] #filtered ecodes 
 fsecodes = [key[4:] for key in ecodes] #filtered and stripped ecodes
 
 print " "
 print "#########################"
 print "-How to choose a proper ecode?"
-print "-This script takes all KEY_$ ecodes and wait you to either enter the $ or search for an ecode."
+print "-This script takes all KEY_$ ecodes and waits for you to either enter the $ or search for an ecode."
 print "To enter the $, enter it in uppercase (i.e. 'A' would mean that you chose 'KEY_A')."
 print "To search for an ecode, enter part of it in lowercase. Space-separated $ containing your input symbols will be printed out."
 print "#########################"
