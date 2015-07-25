@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ###################################
 # Smart keycode-ecode mapper by CRImier
 ###################################
